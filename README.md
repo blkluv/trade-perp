@@ -1,6 +1,6 @@
 # Sol-Trade-Perpetual_Future_a-Trading-Platform
 
-A meme-style, non-custodial perpetual futures trading website on Solana, powered by Drift Protocol. Users can connect their wallets (Phantom, Solflare) and trade real money through Drift Protocol integration - earning referral fees legally without custodying funds.
+None-Custodial perpetual futures trading website on blockchain, powered by Drift Protocol. Users can connect their wallets (Phantom, Solflare) and trade real money through Drift Protocol integration - earning referral fees legally without custodying funds.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Solana](https://img.shields.io/badge/Solana-Devnet-purple)
