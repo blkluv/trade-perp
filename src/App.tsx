@@ -5,10 +5,13 @@ import TradePanel from './components/TradePanel'
 import RiskWarning from './components/RiskWarning'
 import DashboardPanel from './components/DashboardPanel'
 import PositionPanel from './components/PositionPanel'
+import OrderHistory from './components/OrderHistory'
+import PnLAnalytics from './components/PnLAnalytics'
 
 function App() {
   const [driftClient, setDriftClient] = useState<DriftClient | null>(null)
   const [user, setUser] = useState<User | null>(null)
+  const [activeTab, setActiveTab] = useState<'trade' | 'positions' | 'orders' | 'analytics'>('trade')
 
   const handleDriftClientChange = (client: DriftClient | null, userAccount: User | null) => {
     setDriftClient(client)
@@ -54,11 +57,57 @@ function App() {
         {/* Dashboard Panel - Shows account stats */}
         <DashboardPanel user={user} />
 
-        {/* Trading Panel */}
-        <TradePanel onDriftClientChange={handleDriftClientChange} />
+        {/* Tab Navigation */}
+        {user && (
+          <div className="tabs tabs-boxed bg-base-100 shadow-lg mb-4">
+            <a
+              className={`tab tab-lg ${activeTab === 'trade' ? 'tab-active' : ''}`}
+              onClick={() => setActiveTab('trade')}
+            >
+              🎯 Trade
+            </a>
+            <a
+              className={`tab tab-lg ${activeTab === 'positions' ? 'tab-active' : ''}`}
+              onClick={() => setActiveTab('positions')}
+            >
+              📊 Positions
+            </a>
+            <a
+              className={`tab tab-lg ${activeTab === 'orders' ? 'tab-active' : ''}`}
+              onClick={() => setActiveTab('orders')}
+            >
+              📋 Orders
+            </a>
+            <a
+              className={`tab tab-lg ${activeTab === 'analytics' ? 'tab-active' : ''}`}
+              onClick={() => setActiveTab('analytics')}
+            >
+              📈 Analytics
+            </a>
+          </div>
+        )}
 
-        {/* Position Panel - Shows and manages open positions */}
-        <PositionPanel user={user} driftClient={driftClient} />
+        {/* Conditional Rendering Based on Active Tab */}
+        {activeTab === 'trade' && (
+          <TradePanel onDriftClientChange={handleDriftClientChange} />
+        )}
+
+        {activeTab === 'positions' && (
+          <PositionPanel user={user} driftClient={driftClient} />
+        )}
+
+        {activeTab === 'orders' && (
+          <OrderHistory user={user} />
+        )}
+
+        {activeTab === 'analytics' && (
+          <PnLAnalytics user={user} />
+        )}
+
+        {/* Show TradePanel by default if no user connected */}
+        {!user && (
+          <TradePanel onDriftClientChange={handleDriftClientChange} />
+        )}
 
         {/* Footer */}
         <footer className="footer footer-center p-10 text-base-content mt-16">
