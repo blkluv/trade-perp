@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { DriftClient, MarketType, PositionDirection, User, BN, convertToNumber, QUOTE_PRECISION, getLimitOrderParams, getTriggerMarketOrderParams, OrderTriggerCondition } from '@drift-labs/sdk';
+import { DriftClient, MarketType, PositionDirection, User, BN, convertToNumber, QUOTE_PRECISION, getLimitOrderParams } from '@drift-labs/sdk';
 
 interface TradePanelProps {
   driftClient: DriftClient | null;
@@ -22,7 +22,6 @@ function TradePanel({ driftClient, user, isInitializing, status: appStatus, mark
   const [askPrice, setAskPrice] = useState<string | null>(null);
   const [orderType, setOrderType] = useState('market');
   const [limitPrice, setLimitPrice] = useState('');
-  const [triggerPrice, setTriggerPrice] = useState('');
 
   useEffect(() => {
     if (driftClient && markets.length > 0) {
@@ -61,24 +60,13 @@ function TradePanel({ driftClient, user, isInitializing, status: appStatus, mark
           baseAssetAmount: positionSize,
           marketType: MarketType.PERP,
         });
-      } else if (orderType === 'limit') {
+      } else {
         const limitPriceBN = new BN(parseFloat(limitPrice) * QUOTE_PRECISION.toNumber());
         const orderParams = getLimitOrderParams({
           marketIndex,
           direction,
           baseAssetAmount: positionSize,
           price: limitPriceBN,
-        });
-        txSig = await driftClient.placePerpOrder(orderParams);
-      } else if (orderType === 'stop') {
-        const triggerPriceBN = new BN(parseFloat(triggerPrice) * QUOTE_PRECISION.toNumber());
-        const triggerCondition = direction === PositionDirection.LONG ? OrderTriggerCondition.BELOW : OrderTriggerCondition.ABOVE;
-        const orderParams = getTriggerMarketOrderParams({
-          marketIndex,
-          direction,
-          baseAssetAmount: positionSize,
-          triggerPrice: triggerPriceBN,
-          triggerCondition,
         });
         txSig = await driftClient.placePerpOrder(orderParams);
       }
@@ -164,12 +152,6 @@ function TradePanel({ driftClient, user, isInitializing, status: appStatus, mark
                 >
                   Limit
                 </button>
-                <button
-                  className={`btn join-item ${orderType === 'stop' ? 'btn-active' : ''}`}
-                  onClick={() => setOrderType('stop')}
-                >
-                  Stop Market
-                </button>
               </div>
             </div>
 
@@ -184,21 +166,6 @@ function TradePanel({ driftClient, user, isInitializing, status: appStatus, mark
                   className="input input-bordered w-full"
                   value={limitPrice}
                   onChange={(e) => setLimitPrice(e.target.value)}
-                />
-              </div>
-            )}
-
-            {orderType === 'stop' && (
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text">Trigger Price</span>
-                </label>
-                <input
-                  type="number"
-                  placeholder="Enter trigger price"
-                  className="input input-bordered w-full"
-                  value={triggerPrice}
-                  onChange={(e) => setTriggerPrice(e.target.value)}
                 />
               </div>
             )}
