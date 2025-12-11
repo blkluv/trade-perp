@@ -12,6 +12,7 @@ function App() {
   const [driftClient, setDriftClient] = useState<DriftClient | null>(null)
   const [user, setUser] = useState<User | null>(null)
   const [activeTab, setActiveTab] = useState<'trade' | 'positions' | 'orders' | 'analytics'>('trade')
+  const [_termsAccepted, setTermsAccepted] = useState(false)
 
   const handleDriftClientChange = (client: DriftClient | null, userAccount: User | null) => {
     setDriftClient(client)
@@ -52,7 +53,7 @@ function App() {
         </div>
 
         {/* Risk Warning */}
-        <RiskWarning />
+        <RiskWarning onAccept={setTermsAccepted} />
 
         {/* Dashboard Panel - Shows account stats */}
         <DashboardPanel user={user} />
