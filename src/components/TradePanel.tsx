@@ -1,39 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
-import { DriftClient, MarketType, PositionDirection, User, BN, convertToNumber, QUOTE_PRECISION, getLimitOrderParams } from '@drift-labs/sdk';
+import { DriftClient, MarketType, PositionDirection, User, BN } from '@drift-labs/sdk';
+import { markets } from '../utils/markets';
 
 interface TradePanelProps {
   driftClient: DriftClient | null;
   user: User | null;
   isInitializing: boolean;
   status: string;
-  markets: any[];
 }
 
-function TradePanel({ driftClient, user, isInitializing, status: appStatus, markets }: TradePanelProps) {
+function TradePanel({ driftClient, user, isInitializing, status: appStatus }: TradePanelProps) {
   const { publicKey } = useWallet();
   const [amount, setAmount] = useState('');
   const [leverage, setLeverage] = useState('5');
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState('');
   const [selectedMarket, setSelectedMarket] = useState(0);
-  const [oraclePrice, setOraclePrice] = useState<string | null>(null);
-  const [bidPrice, setBidPrice] = useState<string | null>(null);
-  const [askPrice, setAskPrice] = useState<string | null>(null);
-  const [orderType, setOrderType] = useState('market');
-  const [limitPrice, setLimitPrice] = useState('');
-
-  useEffect(() => {
-    if (driftClient && markets.length > 0) {
-      const market = markets[selectedMarket];
-      const oracleData = driftClient.getOracleDataForPerpMarket(market.marketIndex);
-      const [bid, ask] = driftClient.calculateBidAskPrice(market.amm, oracleData);
-      
-      setOraclePrice(convertToNumber(oracleData.price, QUOTE_PRECISION).toFixed(2));
-      setBidPrice(convertToNumber(bid, QUOTE_PRECISION).toFixed(2));
-      setAskPrice(convertToNumber(ask, QUOTE_PRECISION).toFixed(2));
-    }
-  }, [selectedMarket, driftClient, markets]);
 
   const openPosition = async (direction: PositionDirection) => {
     if (!driftClient || !user || !amount) {
@@ -49,27 +32,15 @@ function TradePanel({ driftClient, user, isInitializing, status: appStatus, mark
       const baseAmount = new BN(parseFloat(amount) * 1_000_000);
       const leverageMultiplier = parseFloat(leverage);
       const positionSize = new BN(baseAmount.toNumber() * leverageMultiplier);
-      const marketIndex = markets[selectedMarket].marketIndex;
+      const marketIndex = markets[selectedMarket].index;
 
-      let txSig;
-      if (orderType === 'market') {
-        txSig = await driftClient.placeAndTakePerpOrder({
-          orderType: 0,
-          marketIndex,
-          direction,
-          baseAssetAmount: positionSize,
-          marketType: MarketType.PERP,
-        });
-      } else {
-        const limitPriceBN = new BN(parseFloat(limitPrice) * QUOTE_PRECISION.toNumber());
-        const orderParams = getLimitOrderParams({
-          marketIndex,
-          direction,
-          baseAssetAmount: positionSize,
-          price: limitPriceBN,
-        });
-        txSig = await driftClient.placePerpOrder(orderParams);
-      }
+      const txSig = await driftClient.placeAndTakePerpOrder({
+        orderType: 0,
+        marketIndex,
+        direction,
+        baseAssetAmount: positionSize,
+        marketType: MarketType.PERP,
+      });
 
       setStatus(`✅ ${directionText} position opened! TX: ${txSig.slice(0, 8)}...`);
       setAmount('');
@@ -119,56 +90,6 @@ function TradePanel({ driftClient, user, isInitializing, status: appStatus, mark
                 ))}
               </select>
             </div>
-
-            <div className="stats shadow w-full my-4">
-              <div className="stat">
-                <div className="stat-title">Oracle Price</div>
-                <div className="stat-value">${oraclePrice}</div>
-              </div>
-              <div className="stat">
-                <div className="stat-title">Bid</div>
-                <div className="stat-value text-success">${bidPrice}</div>
-              </div>
-              <div className="stat">
-                <div className="stat-title">Ask</div>
-                <div className="stat-value text-error">${askPrice}</div>
-              </div>
-            </div>
-
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text">Order Type</span>
-              </label>
-              <div className="join">
-                <button
-                  className={`btn join-item ${orderType === 'market' ? 'btn-active' : ''}`}
-                  onClick={() => setOrderType('market')}
-                >
-                  Market
-                </button>
-                <button
-                  className={`btn join-item ${orderType === 'limit' ? 'btn-active' : ''}`}
-                  onClick={() => setOrderType('limit')}
-                >
-                  Limit
-                </button>
-              </div>
-            </div>
-
-            {orderType === 'limit' && (
-              <div className="form-control w-full">
-                <label className="label">
-                  <span className="label-text">Limit Price</span>
-                </label>
-                <input
-                  type="number"
-                  placeholder="Enter limit price"
-                  className="input input-bordered w-full"
-                  value={limitPrice}
-                  onChange={(e) => setLimitPrice(e.target.value)}
-                />
-              </div>
-            )}
 
             <div className="form-control w-full">
               <label className="label">

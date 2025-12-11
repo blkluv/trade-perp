@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { User, PerpPosition, QUOTE_PRECISION, BASE_PRECISION, DriftClient, PositionDirection, convertToNumber } from '@drift-labs/sdk';
+import { User, PerpPosition, convertToNumber, QUOTE_PRECISION, BASE_PRECISION, DriftClient, PositionDirection } from '@drift-labs/sdk';
+import { markets } from '../utils/markets';
 
-const PositionPanel = ({ user, driftClient, markets }: { user: User | null, driftClient: DriftClient | null, markets: any[] }) => {
+const PositionPanel = ({ user, driftClient }: { user: User | null, driftClient: DriftClient | null }) => {
   const [positions, setPositions] = useState<PerpPosition[]>([]);
   const [loading, setLoading] = useState(true);
   const [closingPosition, setClosingPosition] = useState<number | null>(null);
@@ -86,8 +87,7 @@ const PositionPanel = ({ user, driftClient, markets }: { user: User | null, drif
               <tbody>
                 {positions.map((position) => {
                   const pnl = user.getUnrealizedPNL(true, position.marketIndex);
-                  const currentPosition = user.getPerpPosition(position.marketIndex);
-                  const entryPrice = currentPosition?.quoteAssetAmount.div(currentPosition.baseAssetAmount);
+                  const entryPrice = user.getPerpPosition(position.marketIndex)?.quoteAssetAmount.div(user.getPerpPosition(position.marketIndex)!.baseAssetAmount);
 
                   return (
                     <tr key={position.marketIndex}>
