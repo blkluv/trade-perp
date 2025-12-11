@@ -2,20 +2,16 @@
 
 Thank you for your interest in contributing to Bang Perp Exchange! This document provides guidelines and instructions for contributing.
 
-## 🎯 Vision & Alignment
+## 📚 Quick Links
 
-Bang Perp Exchange is evolving towards the architecture and feature set demonstrated in **[spark/4444JPP/perpetual-future](https://github.com/spark/4444JPP/perpetual-future)**, our reference implementation. When contributing, please:
-
-- Review [ROADMAP.md](./ROADMAP.md) to understand our alignment strategy
-- Check if the feature exists in the reference implementation
-- Follow architectural patterns consistent with the reference
-- Prioritize features that help close documented gaps
-
-This ensures consistency and alignment with our long-term vision.
+- **[Code of Conduct](./CODE_OF_CONDUCT.md)** - Community standards and behavior expectations
+- **[Security Policy](./SECURITY.md)** - How to report security vulnerabilities
+- **[Documentation Index](./DOCUMENTATION_INDEX.md)** - Complete guide to all project documentation
+- **[Architecture](./ARCHITECTURE.md)** - Technical architecture overview
 
 ## 🎯 Code of Conduct
 
-Be respectful, inclusive, and professional. We're building something cool together!
+All contributors must follow our [Code of Conduct](./CODE_OF_CONDUCT.md). Be respectful, inclusive, and professional. We're building something cool together!
 
 ## 🚀 Getting Started
 
@@ -307,8 +303,6 @@ Contributors will be:
 
 ### Resources
 
-- [ROADMAP.md](./ROADMAP.md) - Project vision and alignment strategy
-- [spark/4444JPP/perpetual-future](https://github.com/spark/4444JPP/perpetual-future) - Reference implementation
 - [Drift Protocol Docs](https://docs.drift.trade/)
 - [Solana Developer Docs](https://docs.solana.com/)
 - [React Documentation](https://react.dev/)
