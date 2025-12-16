@@ -68,6 +68,7 @@ The app will be available at `http://localhost:5173` (or another port if 5173 is
 ## Deployment
 
 This project can be deployed to:
+
 - **GitHub Pages**: Use `npm run build` and deploy the `dist` folder
 - **Vercel**: Connect your repository for automatic deployments
 - **Netlify**: Drag and drop the `dist` folder or connect your repository
