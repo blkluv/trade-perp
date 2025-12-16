@@ -1,26 +1,28 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
+import './index.css'
+
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
-import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets'
+import { PhantomWalletAdapter, SolflareWalletAdapter, UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets'
 import { clusterApiUrl } from '@solana/web3.js'
 
 // Import wallet adapter CSS
 import '@solana/wallet-adapter-react-ui/styles.css'
 
-// Set to devnet
-const endpoint = clusterApiUrl('devnet')
+// Get RPC endpoint from env or use devnet
+const endpoint = import.meta.env.VITE_RPC_ENDPOINT || clusterApiUrl('devnet')
 
-// Configure wallets
+// Setup wallet adapters
 const wallets = [
   new PhantomWalletAdapter(),
   new SolflareWalletAdapter(),
+  new UnsafeBurnerWalletAdapter(),
 ]
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
@@ -28,5 +30,5 @@ createRoot(document.getElementById('root')!).render(
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
-  </StrictMode>
+  </React.StrictMode>,
 )

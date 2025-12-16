@@ -1,78 +1,374 @@
-# Bang Perp Exchange
+# Sol-Trade-Perpetual_Future_a-Trading-Platform
 
-Bang Perp Exchange - A meme-style Solana perpetual trading site. Users connect wallets (Phantom/Solflare) and trade perps via Drift Protocol. Non-custodial architecture with Builder Code revenue. Built with React + Vite + TypeScript.
+None-Custodial perpetual futures trading website on blockchain, powered by Drift Protocol. Users can connect their wallets (Phantom, Solflare) and trade real money through Drift Protocol integration - earning referral fees legally without custodying funds.
 
-![Bang Perp Exchange](https://github.com/user-attachments/assets/cea3bbaa-2386-4d2e-b04f-1f0074b56b1e)
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
+![Solana](https://img.shields.io/badge/Solana-Devnet-purple)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-Production%20Ready-success)
 
-## Features
+## 🎯 Project Vision & Reference
 
-- 🚀 **Solana Perpetual Futures Trading** - Powered by Drift Protocol
-- 👛 **Multi-Wallet Support** - Phantom and Solflare wallets
-- 💰 **Non-Custodial** - You control your keys and sign your own transactions
-- 🎨 **Meme-Style UI** - Black and gold theme with Tailwind CSS
-- 🔧 **Modern Stack** - React 19 + Vite 7 + TypeScript
-- 🧪 **Devnet Ready** - Connected to Solana Devnet for testing
+Bang Perp Exchange is evolving towards a comprehensive perpetual futures trading platform. Our development is guided by the architecture and feature set demonstrated in **[spark/4444JPP/perpetual-future](https://github.com/spark/4444JPP/perpetual-future)**, which serves as our **reference implementation and target state**.
 
-## Getting Started
+This reference provides:
+- **Architectural guidance** for system design and component structure
+- **Feature roadmap** defining our development priorities
+- **Best practices** for Solana and Drift Protocol integration
+- **Quality standards** we aim to meet or exceed
+
+📍 **See [ROADMAP.md](./ROADMAP.md)** for our complete alignment strategy, gap analysis, and development timeline.
+
+## 🎯 Features
+
+### 🚀 **NEW v2.0 - Professional Trading Platform!**
+
+Bang Perp Exchange has been upgraded to a comprehensive professional trading platform with advanced features:
+
+### Core Features ✅
+- **🔐 Solana Wallet Connection** - Support for Phantom and Solflare wallets
+- **📊 Advanced Order Types** - Market, Limit, and Stop Market orders
+- **⚡ Real-Time Market Data** - Live oracle prices, bid/ask updates every 2 seconds
+- **📈 Position Management** - View and close positions with one click
+- **📋 Order History** - Complete order tracking with status filtering
+- **💰 P&L Analytics** - Comprehensive performance tracking and analytics
+- **🎯 Tab Navigation** - Intuitive interface: Trade | Positions | Orders | Analytics
+- **💼 Account Dashboard** - Real-time collateral, PNL, and leverage tracking
+- **🌐 Multi-Market Support** - SOL-PERP, BTC-PERP, ETH-PERP
+- **📊 1x-10x Leverage** - Flexible leverage control with visual slider
+- **🔒 Non-Custodial** - You control your funds and sign all transactions
+- **🎨 Professional UI** - Clean, modern interface with DaisyUI dark theme
+- **⚠️ Risk Warnings** - Clear Terms of Service and trading risk disclosures
+
+### 🆕 What's New in v2.0
+- ✅ **Limit Orders** - Set your desired entry/exit price
+- ✅ **Stop Market Orders** - Automated risk management with trigger prices
+- ✅ **Real-Time Prices** - Live oracle, bid, and ask prices
+- ✅ **Position Panel** - View all positions and close with one click
+- ✅ **Order History** - Track all orders with filtering (open/filled/cancelled)
+- ✅ **P&L Analytics** - Comprehensive performance dashboard
+- ✅ **Tab Navigation** - Easy switching between Trade, Positions, Orders, Analytics
+- ✅ **Dashboard Stats** - Real-time account statistics display
+- ✅ **Auto-Refresh** - All data updates automatically
+
+### 📚 Documentation
+- **[⚡ QUICKSTART.md](./QUICKSTART.md)** - 5-minute getting started guide
+- **[🚀 FEATURES.md](./FEATURES.md)** - Complete feature documentation
+- **[🏗️ ARCHITECTURE.md](./ARCHITECTURE.md)** - Technical architecture
+- **[🚢 DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** - Deployment instructions
+
+### Upcoming Features 🚧
+- TradingView chart integration
+- Historical P&L charts
+- Cancel/modify open orders
+- Advanced order types (OCO, Trailing Stop)
+- Export trade history (CSV)
+- Mobile app (React Native)
+- Social trading features
+- Leaderboard system
+
+## 🏗️ Architecture
+
+### Non-Custodial Trading Platform
+```
+┌─────────────────────────────────────────────────┐
+│              Bang Perp Exchange                 │
+│         (React Frontend Interface)              │
+└──────────────┬──────────────────────────────────┘
+               │
+               ↓
+┌──────────────────────────────────────────────────┐
+│     Solana Wallet Adapter                        │
+│  (Phantom, Solflare - User Signs Transactions)  │
+└──────────────┬───────────────────────────────────┘
+               │
+               ↓
+┌──────────────────────────────────────────────────┐
+│         Drift Protocol Smart Contracts           │
+│     (All Trading Logic + Fund Management)        │
+└──────────────────────────────────────────────────┘
+               │
+               ↓
+┌──────────────────────────────────────────────────┐
+│              Solana Blockchain                   │
+│         (Transaction Settlement)                 │
+└──────────────────────────────────────────────────┘
+```
+
+**Revenue Model**: Builder Code / Referral system through Drift Protocol (10-15% of trading fees, paid automatically on-chain)
+
+## 🚀 Quick Start
 
 ### Prerequisites
-
 - Node.js 18+ and npm
 - A Solana wallet (Phantom or Solflare browser extension)
-- Some SOL on Devnet (get from [Solana Faucet](https://faucet.solana.com/))
+- SOL for transaction fees (get from [Solana Faucet](https://faucet.solana.com/) for Devnet)
 
 ### Installation
 
-```bash
-# Install dependencies
-npm install
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ivi374forivi/trading-perpetual-futures.git
+   cd trading-perpetual-futures
+   ```
 
-# Start development server
-npm run dev
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-# Build for production
-npm run build
+3. **Configure environment variables**
 
-# Preview production build
-npm run preview
+   Create a `.env.local` file in the root directory:
+   ```ini
+   VITE_RPC_ENDPOINT=https://api.devnet.solana.com
+   VITE_DRIFT_ENV=devnet
+   # Optional: Register for a Drift Builder Code at https://docs.drift.trade/partnerships/DBC
+   VITE_DRIFT_BUILDER_CODE=
+   ```
+
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+## 📖 Usage Guide
+
+### 1. Connect Your Wallet
+- Click the "Select Wallet" button in the top right
+- Choose Phantom or Solflare
+- Approve the connection in your wallet
+
+### 2. Initialize Drift Protocol
+- Once wallet is connected, the app will automatically initialize Drift Protocol
+- **Important**: You must have a Drift user account. Create one at [drift.trade](https://drift.trade) first if needed
+
+### 3. Trade Perpetual Futures
+- Select a market (SOL-PERP, BTC-PERP, ETH-PERP)
+- Enter the amount in USDC
+- Choose leverage (1x-10x)
+- Click **📈 LONG** (bet price goes up) or **📉 SHORT** (bet price goes down)
+- Approve the transaction in your wallet
+
+### 4. Monitor Your Position
+- Transaction signatures will be displayed
+- Check your positions on [drift.trade](https://drift.trade)
+
+## 🛠️ Technical Stack
+
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| **Frontend Framework** | React 18 + Vite | Fast, modern web app |
+| **Language** | TypeScript | Type safety |
+| **Blockchain** | Solana (Devnet → Mainnet) | Fast, low-cost transactions |
+| **Trading Protocol** | Drift Protocol SDK | Perpetual futures trading |
+| **Wallet Integration** | @solana/wallet-adapter | Wallet connectivity |
+| **Styling** | Tailwind CSS + DaisyUI | Meme-style UI |
+| **Build Tool** | Vite | Fast builds and HMR |
+
+## 📁 Project Structure
+
+```
+trading-perpetual-futures/
+├── src/
+│   ├── main.tsx                 # App entry point with wallet providers
+│   ├── App.tsx                  # Main app component
+│   ├── index.css                # Global styles with Tailwind
+│   ├── vite-env.d.ts            # TypeScript environment types
+│   └── components/
+│       ├── TradePanel.tsx       # Trading interface with Drift integration
+│       └── RiskWarning.tsx      # Terms of Service and risk warnings
+├── index.html                   # HTML entry point
+├── package.json                 # Dependencies and scripts
+├── vite.config.ts               # Vite configuration with polyfills
+├── tsconfig.json                # TypeScript configuration
+├── tailwind.config.js           # Tailwind + DaisyUI config
+├── postcss.config.js            # PostCSS configuration
+└── .env.local                   # Environment variables (create this)
 ```
 
-### Development
+## 🔒 Security & Compliance
 
-The app will be available at `http://localhost:5173` (or another port if 5173 is in use).
+### Security Measures ✅
+- ✅ No private key storage
+- ✅ Users sign all transactions
+- ✅ Input validation on all forms
+- ✅ HTTPS only in production
+- ✅ Environment variables secured
 
-## Tech Stack
+### Legal & Compliance 📋
+- ✅ Terms of Service displayed
+- ✅ Risk warnings on trading UI
+- ✅ Non-custodial architecture (users control funds)
+- ✅ Builder Code revenue model (referral fees only)
 
-- **Frontend**: React 19 with TypeScript
-- **Build Tool**: Vite 7
-- **Styling**: Tailwind CSS v4
-- **Blockchain**: Solana (Devnet)
-- **Wallet Integration**: @solana/wallet-adapter
-- **Trading Protocol**: Drift Protocol (@drift-labs/sdk-browser)
+**Important**: This is a **NON-CUSTODIAL** platform. Users control their funds at all times. Drift Protocol handles compliance. We only earn referral fees through the Builder Code system.
 
-## Architecture
+## 💰 Revenue Model - Drift Builder Code
 
-- **Non-Custodial**: All transactions are signed by the user's wallet
-- **Devnet**: Currently configured for Solana Devnet
-- **Builder Code**: Includes Drift Builder Code "BANGPERP" for fee collection
+### How It Works
+1. Register for a Drift Builder Code via [Drift Protocol Dashboard](https://docs.drift.trade/partnerships/DBC)
+2. Receive a percentage of trading fees (typically 10-15%)
+3. All revenue is paid on-chain automatically
+4. No fund custody required
+5. Fully compliant affiliate model
 
-## Usage
+### Setup Steps
+1. Visit Drift Protocol docs: https://docs.drift.trade/partnerships/DBC
+2. Register for Builder Code
+3. Obtain your public key
+4. Add to `.env.local` as `VITE_DRIFT_BUILDER_CODE`
+5. Verify attribution in Drift dashboard
 
-1. Click "Select Wallet" to connect your Phantom or Solflare wallet
-2. Ensure you're connected to Solana Devnet
-3. Enter the amount of SOL you want to trade
-4. Set your desired leverage (1-10x)
-5. Click "LONG" to go long or "SHORT" to go short
-6. Confirm the transaction in your wallet
+## 🧪 Testing on Devnet
 
-## Deployment
+1. **Get Devnet SOL**
+   - Visit [Solana Faucet](https://faucet.solana.com/)
+   - Airdrop SOL to your wallet address
 
-This project can be deployed to:
+2. **Create Drift Account**
+   - Visit [drift.trade](https://drift.trade) (switch to Devnet)
+   - Create a user account
+   - Get some USDC from Drift's faucet
 
-- **GitHub Pages**: Use `npm run build` and deploy the `dist` folder
-- **Vercel**: Connect your repository for automatic deployments
-- **Netlify**: Drag and drop the `dist` folder or connect your repository
+3. **Test Trading**
+   - Open the Bang Perp Exchange app
+   - Connect your wallet
+   - Try opening a small position
+   - Verify the transaction on [Solana Explorer](https://explorer.solana.com/?cluster=devnet)
 
-## License
+## 🚢 Deployment
 
-MIT
+### Deploy to GitHub Pages
+
+1. Update `vite.config.ts` with base path:
+   ```typescript
+   export default defineConfig({
+     base: '/trading-perpetual-futures/',
+     // ... rest of config
+   })
+   ```
+
+2. Build and deploy:
+   ```bash
+   npm run build
+   # Deploy dist/ folder to GitHub Pages
+   ```
+
+### Deploy to Vercel
+
+1. Install Vercel CLI:
+   ```bash
+   npm i -g vercel
+   ```
+
+2. Deploy:
+   ```bash
+   vercel
+   ```
+
+### Deploy to Netlify
+
+1. Drag-and-drop the `dist` folder in the Netlify UI **or** connect the repository
+2. If connecting the repo, set build command to `npm run build` and publish directory to `dist`
+3. Add environment variables in Site settings → Environment
+
+### Production Checklist
+
+Before deploying to mainnet:
+- [ ] Switch `VITE_RPC_ENDPOINT` to mainnet RPC
+- [ ] Update `VITE_DRIFT_ENV` to `mainnet-beta`
+- [ ] Add your Drift Builder Code
+- [ ] Test all features thoroughly
+- [ ] Add analytics tracking
+- [ ] Setup error monitoring
+- [ ] Perform security audit
+- [ ] Verify legal compliance in your jurisdiction
+
+## 📚 Resources
+
+### Project Documentation
+- [ROADMAP.md](./ROADMAP.md) - Project vision, alignment strategy, and development timeline
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - Technical architecture details
+- [QUICKSTART.md](./QUICKSTART.md) - 5-minute getting started guide
+- [CONTRIBUTING.md](./CONTRIBUTING.md) - How to contribute
+
+### External Documentation
+- [spark/4444JPP/perpetual-future](https://github.com/spark/4444JPP/perpetual-future) - Reference implementation (target state)
+- [Drift Protocol Docs](https://docs.drift.trade/)
+- [Drift SDK](https://www.npmjs.com/package/@drift-labs/sdk)
+- [Solana Wallet Adapter](https://github.com/solana-labs/wallet-adapter)
+- [Builder Code Info](https://docs.drift.trade/partnerships/DBC)
+- [Solana Developer Docs](https://docs.solana.com/)
+
+### Tools
+- [Drift Protocol App](https://drift.trade)
+- [Solana Explorer](https://explorer.solana.com/)
+- [Solana Faucet](https://faucet.solana.com/)
+
+## ⚠️ Risk Disclaimer
+
+**IMPORTANT: Please Read Carefully**
+
+Trading perpetual futures involves substantial risk of loss and is not suitable for everyone. Key risks include:
+
+- **High Volatility**: Crypto markets are extremely volatile
+- **Leverage Risk**: Leverage amplifies both gains and losses
+- **Liquidation Risk**: You may lose more than your initial investment
+- **Smart Contract Risk**: Despite audits, smart contract risks exist
+- **Network Risk**: Blockchain congestion may affect execution
+
+**Only trade with funds you can afford to lose completely.**
+
+This platform is for educational and experimental purposes. Not financial advice. Do your own research. Consult a financial advisor before trading.
+
+## 👥 Team
+
+- **Project Lead**: 4444JPP
+- **Repository**: ivi374forivi/trading-perpetual-futures
+
+## 📄 License
+
+MIT License - see LICENSE file for details
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our contribution guidelines before submitting a Pull Request.
+
+- **[Contributing Guide](./CONTRIBUTING.md)** - Development workflow, code standards, and PR guidelines
+- **[Code of Conduct](./CODE_OF_CONDUCT.md)** - Community standards and expectations
+- **[Security Policy](./SECURITY.md)** - Reporting vulnerabilities and security best practices
+
+### Quick Contribution Steps
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📚 Documentation
+
+- **[Documentation Index](./DOCUMENTATION_INDEX.md)** - Complete catalog of all project documentation
+- **[Architecture Guide](./ARCHITECTURE.md)** - Technical architecture deep dive
+- **[Deployment Guide](./DEPLOYMENT_GUIDE.md)** - Deploy to production
+- **[Project Summary](./PROJECT_SUMMARY.md)** - Project status and achievements
+- **[Checklist](./CHECKLIST.md)** - Setup and testing verification
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/ivi374forivi/trading-perpetual-futures/issues)
+- **Drift Support**: [Drift Discord](https://discord.gg/driftprotocol)
+
+---
+
+**Status**: 🟢 Production Ready
+**Version**: 2.0.0
+**Last Updated**: 2025-11-18
+
+**Built with ❤️ on Solana**
