@@ -80,7 +80,7 @@ function App() {
       <div className="navbar bg-base-100 shadow-lg">
         <div className="flex-1">
           <a className="btn btn-ghost text-2xl font-bold">
-            💥 Bang Perp Exchange
+            💥PerpSolator
           </a>
         </div>
         <div className="flex-none">
