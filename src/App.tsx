@@ -95,7 +95,7 @@ function App() {
           <div className="hero-content text-center">
             <div className="max-w-md">
               <h1 className="text-5xl font-bold mb-4 animate-bang">
-                💥 BANG! 💥
+                💥PerpSolator💥
               </h1>
               <p className="text-xl mb-2">
                 Trade Solana Perpetual Futures
