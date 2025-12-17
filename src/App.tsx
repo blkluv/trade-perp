@@ -101,7 +101,7 @@ function App() {
                 Trade Solana Perpetual Futures
               </p>
               <p className="text-sm opacity-80">
-                Powered by Drift Protocol | Non-Custodial | You Control Your Funds
+                Powered by Drift Protocol | Non-Custodial | You Control Your Funds [Devnet]
               </p>
             </div>
           </div>
